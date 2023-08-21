@@ -1,0 +1,11 @@
+eureka.instance.hostname=localhost
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+server.port=8761
+
+# Distributed Tracing - Zipkin
+management:
+tracing:
+sampling:
+probability: 1.0 # send 100% of request to Zipkin

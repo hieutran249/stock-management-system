@@ -3,5 +3,9 @@ spring.datasource.url=jdbc:mysql://localhost:3306/inventory-service
 spring.datasource.username=root
 spring.datasource.password=root
 spring.jpa.hibernate.ddl-auto=update
+spring.application.name=inventory-service
 
-server.port=8082
+# randomly choose a free port to run
+server.port=0
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka

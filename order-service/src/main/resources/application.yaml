@@ -1,0 +1,59 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/order-service
+    password: root
+  application:
+    name: order-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+# randomly choose a free port to run
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    circuitbreakers:
+      enabled: 'true'
+  endpoint:
+    health:
+      show-details: always
+
+# Resilience4j Properties
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventory:
+        register-health-indicator: true # to see different states of circuit breaker
+        event-consumer-buffer-size: 10
+        sliding-window-type: COUNT_BASED # to count number of requests to change circuit breaker's state
+        sliding-window-size: 5 # after 5 fail requests -> change state from closed to open
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5s # time to wait to change state to half-open state
+        permitted-number-of-calls-in-half-open-state: 3 # number of requests allowed in half-open state to check if the service of ok or not
+        automatic-transition-from-open-to-half-open-enabled: true
+
+  # Resilience4j Timeout Properties (slow response)
+  timelimiter:
+    instances:
+      inventory:
+        timeout-duration: 3s #if the request takes more than 3s, throw timeout exception
+
+  # Resilience4j Retry Properties (no response)
+  retry:
+    instances:
+      inventory:
+        max-attempts: 3 #retry 3 times
+        wait-duration: 5s # wait 5s to retry

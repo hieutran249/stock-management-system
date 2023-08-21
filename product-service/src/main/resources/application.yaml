@@ -1,0 +1,9 @@
+spring.data.mongodb.uri=mongodb://localhost:27017/product-service
+spring.application.name=product-service
+
+# randomly choose a free port to run
+server.port=0
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+
