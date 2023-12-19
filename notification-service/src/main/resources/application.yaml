@@ -17,6 +17,9 @@ spring:
     consumer: # tell Spring Boot how to deserialize incoming key-value pairs
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.type.mapping: event:com.hieutt.notificationservice.event.OrderPlacedEvent #map the OrderPlacedEvent in order service to OrderPlacedEvent in noti service
+      group-id: notificationId
 
 management:
   # Distributed Tracing - Zipkin

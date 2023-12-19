@@ -15,10 +15,10 @@ import java.util.List;
 public class InventoryController {
     private final InventoryService inventoryService;
 
-    @GetMapping("/{skuCode}")
+    @GetMapping("/is-in-stock")
     @ResponseStatus(HttpStatus.OK)
-    public boolean isInStock(@PathVariable(value = "skuCode") String skuCode) {
-        return inventoryService.isInStock(skuCode);
+    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCodes) {
+        return inventoryService.isInStock(skuCodes);
     }
 
     @PostMapping

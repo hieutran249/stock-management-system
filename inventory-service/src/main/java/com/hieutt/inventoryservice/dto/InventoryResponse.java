@@ -13,4 +13,5 @@ public class InventoryResponse {
     private Long id;
     private String skuCode;
     private Integer quantity;
+    private Boolean isInStock;
 }

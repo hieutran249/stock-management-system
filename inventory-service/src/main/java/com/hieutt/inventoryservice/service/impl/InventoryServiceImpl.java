@@ -6,6 +6,8 @@ import com.hieutt.inventoryservice.model.Inventory;
 import com.hieutt.inventoryservice.repository.InventoryRepository;
 import com.hieutt.inventoryservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +15,22 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class InventoryServiceImpl implements InventoryService {
     private final InventoryRepository inventoryRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public boolean isInStock(String skuCode) {
-        return inventoryRepository.findBySkuCode(skuCode).isPresent();
+//    @SneakyThrows
+    public List<InventoryResponse> isInStock(List<String> skuCodes) {
+//        log.info("WAIT STARTED");
+//        Thread.sleep(10000);
+//        log.info("WAIT ENDED");
+
+        return inventoryRepository.findBySkuCodeIn(skuCodes)
+                .stream()
+                .map(this::mapToDto)
+                .toList();
     }
 
     @Override
@@ -45,6 +56,7 @@ public class InventoryServiceImpl implements InventoryService {
                 .id(inventory.getId())
                 .skuCode(inventory.getSkuCode())
                 .quantity(inventory.getQuantity())
+                .isInStock(inventory.getQuantity() > 0)
                 .build();
     }
 

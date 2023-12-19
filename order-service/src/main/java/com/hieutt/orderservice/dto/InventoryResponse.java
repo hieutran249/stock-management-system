@@ -1,4 +1,4 @@
-package com.hieutt.inventoryservice.dto;
+package com.hieutt.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

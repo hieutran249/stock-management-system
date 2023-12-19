@@ -1,0 +1,16 @@
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411
+server:
+  port: '8080'
+spring:
+  data:
+    mongodb:
+      database: product-service
+      port: '27017'
+      host: mongo
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka

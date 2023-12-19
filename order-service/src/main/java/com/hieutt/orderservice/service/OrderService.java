@@ -6,7 +6,7 @@ import com.hieutt.orderservice.dto.OrderResponse;
 import java.util.List;
 
 public interface OrderService {
-    void placeOrder(OrderRequest orderRequest);
+    String placeOrder(OrderRequest orderRequest);
 
     List<OrderResponse> getAllOrders();
 }

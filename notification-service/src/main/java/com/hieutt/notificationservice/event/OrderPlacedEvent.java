@@ -1,4 +1,4 @@
-package com.hieutt.orderservice.event;
+package com.hieutt.notificationservice.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

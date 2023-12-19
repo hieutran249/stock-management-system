@@ -10,6 +10,17 @@ spring:
     hibernate:
       ddl-auto: update
 
+  # Kafka Properties
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: notificationTopic #always send message to this topic by default
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer # tell Spring Boot how to serialize key(topic) and send to broker
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # tell Spring Boot how to serialize value(message) and send to broker
+      properties:
+        spring.json.type.mapping: event:com.hieutt.orderservice.event.OrderPlacedEvent #map the OrderPlacedEvent in order service to OrderPlacedEvent in noti service
+
 # randomly choose a free port to run
 server:
   port: 0
@@ -30,6 +41,11 @@ management:
   endpoint:
     health:
       show-details: always
+
+  # Distributed Tracing - Zipkin
+  tracing:
+    sampling:
+      probability: 1.0 # send 100% of request to Zipkin
 
 # Resilience4j Properties
 resilience4j:
@@ -57,3 +73,5 @@ resilience4j:
       inventory:
         max-attempts: 3 #retry 3 times
         wait-duration: 5s # wait 5s to retry
+
+
